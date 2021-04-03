@@ -1,10 +1,12 @@
+body {
+  background-color: #282c34;
+}
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Header {
+  color: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,7 +15,7 @@
   }
 }
 
-.App-header {
+.Game {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -23,9 +25,18 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+button {
+  padding: 10px;
+  font-weight:bolder;
+  background-color:lightgray;
+}
+.Play-Button {
+  color: rgb(83, 97, 46);
 
-.App-link {
-  color: #61dafb;
+
+}
+.blurb {
+  margin-bottom: 200px;
 }
 
 @keyframes App-logo-spin {
