@@ -1,6 +1,6 @@
 const Ship = require('./Ship');
 
-const Board = () => {
+const GameBoard = () => {
     const board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -73,7 +73,7 @@ const Board = () => {
         if (typeof board[col][row] === 'object') {
             const position = calculateShipPosition(col, row)
             board[col][row].hit(position)
-            board[col][row = 'sunk ship']
+            board[col][row] = 'sunk ship'
         } else {
             board[col][row] = 'x'
         }
@@ -97,7 +97,7 @@ const getShipsRemaining = () => {
 }
 
 
-module.exports = Board
+module.exports = GameBoard
 
 const validHorizontalCoordinates = (board, coordinates, ship) => {
     let {row, col} = coordinates

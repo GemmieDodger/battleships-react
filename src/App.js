@@ -1,12 +1,20 @@
+import React from 'react';
+import { BrowserRouter as Router} from 'react-router-dom';
+import {Route, Switch } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
-import Game from './components/Game';
+
+import Board from './views/Board';
+import Home from './views/Home';
 
 function App() {
   return (
     <div className="App">
-      <Header/>
-      <Game/>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/board" exact component={Board} />
+      </Switch>
+      </Router>
     </div>
   );
 }

@@ -25,18 +25,16 @@ body {
   font-size: calc(10px + 2vmin);
   color: white;
 }
-button {
+.link {
   padding: 10px;
   font-weight:bolder;
-  background-color:lightgray;
+  text-decoration: none;
 }
 .Play-Button {
-  color: rgb(83, 97, 46);
+  color: rgb(182, 205, 50);
+  background-color: rgb(83, 97, 46);
 
 
-}
-.blurb {
-  margin-bottom: 200px;
 }
 
 @keyframes App-logo-spin {
