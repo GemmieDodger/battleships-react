@@ -4,12 +4,12 @@ const GameBoard = require ('../GameBoard');
 describe('board', () => {
     test('create board', () => {
         const board = GameBoard();
-        expect(board.getBoard().length).toBe(10)
+        expect(board.getGameBoard().length).toBe(10)
     })
     test('place 5 ships onto the board', () => {
         const board = GameBoard()
         let shipsSpacesTakenOnBoard = 0
-        board.getBoard().forEach(arr => {
+        board.getGameBoard().forEach(arr => {
             const numberOfShipsOnBoard = arr.filter(value => typeof value === 'object')
             shipsSpacesTakenOnBoard += numberOfShipsOnBoard.length
         })
@@ -17,9 +17,9 @@ describe('board', () => {
     })
     test('receiveAttack attacks a ship or records the attack', () => {
         const board = GameBoard()
-        expect(board.getBoard()[1][2] === 0 || typeof board.getBoard()[1][2] === 'object').toBeTruthy()
+        expect(board.getGameBoard()[1][2] === 0 || typeof board.getGameBoard()[1][2] === 'object').toBeTruthy()
     board.receiveAttack(1,2)
-    expect(board.getBoard()[1][2] === 'x' || board.getBoard()[1][2] === 'sunk ship').toBeTruthy()
+    expect(board.getGameBoard()[1][2] === 'x' || board.getGameBoard()[1][2] === 'sunk ship').toBeTruthy()
     })    
     test('allShipsSunk detects when all ships were sunk', () => {
         const board = GameBoard();
@@ -34,7 +34,7 @@ describe('board', () => {
     
     test('Places the ships on random coordinates without touching each other', () => {
         const board = GameBoard();
-        const grid = board.getBoard();
+        const grid = board.getGameBoard();
    
         const checkValidity = (object,b,i) => {
             if (b === 9) {

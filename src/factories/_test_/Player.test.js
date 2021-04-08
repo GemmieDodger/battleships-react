@@ -1,5 +1,6 @@
 const GameBoard = require('../GameBoard');
 const Player = require ('../Player');
+const ComputerPlayer = require ('../ComputerPlayer');
 
 describe('player', () => {
     test('create normal player', () => {
@@ -10,18 +11,9 @@ describe('player', () => {
     })
     test('create computer player', () => {
         const board = GameBoard()
-        const player = Player('Computer', board);
+        const player = ComputerPlayer('Computer', board);
         expect(player.getName()).toBe('Computer')
         expect(player.turn).toBe(false)
     })
-    test('randomAttack for computer', () => {
-        const board = GameBoard()
-        const player = Player('Computer', board);
-        const originalLength = player.coordinates.length
-        expect(originalLength).toBe(player.coordinates.length)
-        player.randomAttack()
-        expect(originalLength).not.toBe(player.coordinates.length)
-        player.randomAttack()
-        expect(originalLength).not.toBe(player.coordinates.length)
-    })
+
 })

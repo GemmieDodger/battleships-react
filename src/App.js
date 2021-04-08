@@ -3,8 +3,8 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import {Route, Switch } from 'react-router-dom';
 import './App.css';
 
-import Board from './views/Board';
 import Home from './views/Home';
+import Game from './views/Game';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/board" exact component={Board} />
+        <Route path="/game" exact component={Game} />
       </Switch>
       </Router>
     </div>
