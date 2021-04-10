@@ -1,6 +1,6 @@
 const Ship = require('./Ship');
 
-const GameBoard = () => {
+const Gameboard = () => {
     const board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -97,7 +97,7 @@ const getShipsRemaining = () => {
 }
 
 
-module.exports = GameBoard
+module.exports = Gameboard
 
 const validHorizontalCoordinates = (board, coordinates, ship) => {
     let {row, col} = coordinates

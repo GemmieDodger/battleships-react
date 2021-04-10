@@ -16,13 +16,13 @@ const ComputerPlayer = (name, gameboard) => {
         return [randomCoordinate[0], randomCoordinate[1]]
     }
 
-    const getGameBoard = () => gameboard;
+    const getGameboard = () => gameboard;
     const getName = () => name
 
     return {
         randomAttack,
         turn,
-        getGameBoard,
+        getGameboard,
         getName
     }
 }

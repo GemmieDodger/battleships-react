@@ -1,30 +1,31 @@
-import { useState, useEffect } from 'react';
-import newGameBoard from '../../factories/GameBoard';
-import Player from '../../factories/Player';
-import ComputerPlayer from '../../factories/ComputerPlayer';
+import {useState, useEffect} from 'react';
+import newGameboard from '../../factories/Gameboard';
+import humanPlayer from '../../factories/Player';
+import computerPlayer from '../../factories/ComputerPlayer';
+
 
 const useGameLoop = () => {
     const [winner, setWinner] = useState(null);
     const [remainingShips, setRemainingShips] = useState();
     const [players, setPlayers] = useState({
-        human: Player('Human', newGameBoard()),
-        computer: ComputerPlayer('Computer', newGameBoard())
+        human: humanPlayer('Human', newGameboard()),
+        computer: computerPlayer('Computer', newGameboard())
     });
-
+    
     useEffect(() => {
         players && setRemainingShips({
-            humanShips: players.human.getGameBoard().getShipsRemaining(),
-            computerShips: players.computer.getGameBoard().getShipsRemaining()
+            humanShips: players.human.getGameboard().getShipsRemaining(),
+            computerShips: players.computer.getGameboard().getShipsRemaining()
         })
     }, [players])
 
     const startNewGame = () => {
         const newPlayers = {
-            human: Player('Human', newGameBoard()),
-            computer:  ComputerPlayer('Computer', newGameBoard())
+            human: humanPlayer('Human', newGameboard()),
+            computer: computerPlayer('Computer',newGameboard())
         }
-        setPlayers(newPlayers)
-        setWinner(null)
+        setPlayers(newPlayers);
+        setWinner(null);
     }
 
     const changePlayersTurn = () => {
@@ -33,59 +34,59 @@ const useGameLoop = () => {
                 ...prevState.human,
                 turn: !prevState.human.turn
             },
-            computer: {
-                ...prevState.computer.turn
+            computer:{
+                ...prevState.computer,
+                turn: !prevState.computer.turn
             }
         }))
     }
 
     const checkWinner = () => {
-        if (players.human.getGameBoard().allShipsSunk()){
-            setWinner(players.computer.getName())
-        } else if (players.computer.getGameBoard().allShipsSunk()) {
-            setWinner(players.human.getName())
+        if (players.human.getGameboard().allShipsSunk()){
+            setWinner(players.computer.getName());
+        } else if (players.computer.getGameboard().allShipsSunk()){
+            setWinner(players.human.getName());
         }
     }
 
-    const isShipHit = (enemyGameBoard, col, row) => {
-        const enemyBoard = enemyGameBoard.getBoard();
-        return(enemyBoard[col][row] === 'sunk ship');
-    }
+    const isShipHit = (enemyGameboard, column, row) => {
+        const enemyBoard = enemyGameboard.getBoard();
+        return (enemyBoard[column][row] === 'sunked ship');
+    } 
 
     const computerPlay = () => {
         setTimeout(() => {
             const randomCoords = players.computer.randomAttack();
-            const col = randomCoords[0]
-            const row = randomCoords[1]
-            const enemyGameBoard = players.human.getGameBoard()
-            enemyGameBoard.receiveAttack(col, row)
-            if(isShipHit(enemyGameBoard, col, row)) {
+            const column = randomCoords[0];
+            const row = randomCoords[1];
+            const enemyGameboard = players.human.getGameboard();
+
+            enemyGameboard.receiveAttack(column, row);
+            if (isShipHit(enemyGameboard,column,row)) {
                 setPlayers(prevState => ({...prevState}))
-                checkWinner()
-                setTimeout(() => {computerPlay()}, 300)
-                return
+                checkWinner();
+                setTimeout(() => {computerPlay()}, 300);
+                return;
             }
-            changePlayersTurn()
-        }, 300)
+            changePlayersTurn();
+        }, 300);
     }
 
-    const cellOnClick = (col, row) => {
-        const enemyGameBoard = players.computer.getGameBoard()
+    const cellOnClick = (column, row) => {
+        const enemyGameboard = players.computer.getGameboard();
+        enemyGameboard.receiveAttack(column, row);
 
-        enemyGameBoard.receiveAttack(col, row)
-
-        if(isShipHit(enemyGameBoard, col, row)) {
-            setPlayers(prevState => ({ ...prevState}))
-            checkWinner()
-            return
+        if (isShipHit(enemyGameboard,column,row)) {
+            setPlayers(prevState => ({...prevState}))
+            checkWinner(); 
+            return;
         }
-        changePlayersTurn()
+        
+        changePlayersTurn();
         computerPlay();
     }
-    
+
     return {cellOnClick, players, winner, startNewGame, remainingShips}
-
-
 }
 
-export default useGameLoop
+export default useGameLoop;

@@ -120,15 +120,15 @@ const Lives = styled.p `
 `
 
 
-const GameBoards = (props) => {
-    const {humanGameBoard, computerGameBoard, cellOnClick, shipsRemaining} = props;
-    console.log(computerGameBoard)
+const Gameboards = (props) => {
+    const {humanGameboard, computerGameboard, cellOnClick, shipsRemaining} = props;
+
     return(
         <>
             <Wrapper>
                 <Title style={{color:'green'}}>Your board</Title>
                 <Board  data-testid='human-gameboard'>
-                    {humanGameBoard.map((row,i)=>
+                    {humanGameboard.map((row,i)=>
                     <React.Fragment key={uniqid()}>
                         <Row key={uniqid()}>
                             {row.map((element, i) => 
@@ -144,7 +144,7 @@ const GameBoards = (props) => {
                                         data-testid='missed-shot' 
                                         key={uniqid()}>
                                     ×</MissedShot>
-                                : element === 'sunked ship' &&
+                                : element === 'sunk ship' &&
                                     <HitShip 
                                         data-testid='hit-ship'
                                         key={uniqid()}>
@@ -163,7 +163,7 @@ const GameBoards = (props) => {
             <Wrapper>
                 <Title style={{color:'red'}}>Enemy board</Title>
                 <Board data-testid='computer-gameboard'>
-                    {computerGameBoard.map((row,i) => 
+                    {computerGameboard.map((row,i) => 
                     <React.Fragment key={uniqid()}>
                         <Row key={uniqid()}>
                             {row.map((cell, i) => 
@@ -172,7 +172,7 @@ const GameBoards = (props) => {
                                     data-testid='cell'
                                     className='nes-pointer'
                                     key={uniqid()}
-                                    data-cord1={computerGameBoard.indexOf(row)}
+                                    data-cord1={computerGameboard.indexOf(row)}
                                     data-cord2={i}
                                     onClick={(e) => cellOnClick(Number(e.target.dataset.cord1),Number(e.target.dataset.cord2))}
                                     data-player={props.player} 
@@ -182,7 +182,7 @@ const GameBoards = (props) => {
                                         data-testid='missed-shot'
                                         key={uniqid()}>
                                     ×</MissedShot> 
-                                : cell === 'sunked ship' &&
+                                : cell === 'sunk ship' &&
                                     <HitShip
                                         data-testid='hit-ship'
                                         key={uniqid()}>
@@ -200,4 +200,4 @@ const GameBoards = (props) => {
     )
 }
 
-export default GameBoards;
+export default Gameboards;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import GameBoards from "../components/GameBoards"
+import Gameboards from "../components/Gameboards"
 import useGameLoop from '../components/Hooks/useGameLoop'
 import styled from '@emotion/styled';
 
@@ -7,6 +7,18 @@ const Button = styled.button `
     display:flex;
     margin:20px auto;
 `
+
+const Menu = styled.div `
+    margin:45px auto !important;
+    display:flex;
+    flex-direction:column;
+    width:300px;
+    position:static;
+    @media(max-width:320px) {
+        width:250px;
+    }
+`
+
 
 const StateTurn = styled.h3 `
     text-align:center;
@@ -57,8 +69,10 @@ const Container = styled.div `
 
 const Game = () => {
     const {cellOnClick, players, winner, startNewGame, remainingShips} = useGameLoop()
-    const [renderGameBoards, setRenderGameBoards] = useState(false)
+    console.log('players top of game', players)
+    const [renderGameboards, setRenderGameboards] = useState(false)
     const [renderWinner, setRenderWinner] = useState(false)
+    const [renderMenu, setRenderMenu] = useState(true);
 
     useEffect(() => {
         winner ? setRenderWinner(true) : setRenderWinner(false)
@@ -66,36 +80,47 @@ const Game = () => {
 
     const handleNewGame = () => {
         startNewGame()
-        setRenderGameBoards(true)
+        setRenderMenu(false); 
+        setRenderGameboards(true)
+        console.log(players, 'handlen new game')
     }
     return (
         <>
-            <Button 
-                 className='nes-btn' 
-                onClick={() => handleNewGame()}>
-                        New game
-            </Button>
-            {renderGameBoards &&
-                <Container>
-                    <StateTurn>{players.human.turn ? 'Your turn' : 'Computer\'s turn.'}</StateTurn>
-                    <GameBoards
-                        cellOnClick={cellOnClick}
-                        humanGameBoard={players.human.getGameBoard().getBoard()}
-                        computerGameBoard={players.computer.getGameBoard().getBoard()}
-                        shipsRemaining={remainingShips}
-                    />
-                </Container>
-            }
-            {renderWinner &&
-                <WinnerContainer
-                data-testid="winner-container"
-                className=''>
-                    <Title> {winner === 'Human' ? 'You won!' : 'You lost'}</Title>
-                    <Button onClick={() => startNewGame()}>
-                    Play again?</Button>
-                </WinnerContainer>
-            }
-        </>
+        {renderMenu && 
+            <Menu>
+                <Button 
+                    className='nes-btn' 
+                    onClick={() => handleNewGame()}>
+                    New game
+                </Button>
+            </Menu>
+        }
+
+        {renderGameboards &&
+            <Container>
+                <StateTurn>{players.human.turn ? 'Your turn' : 'Computer\'s turn.'}</StateTurn>
+                <Gameboards
+                    cellOnClick={cellOnClick}
+                    humanGameboard={players.human.getGameboard().getBoard()}
+                    computerGameboard={players.computer.getGameboard().getBoard()}
+                    shipsRemaining={remainingShips}
+                />
+            </Container>
+        }
+
+        {renderWinner &&
+            <WinnerContainer 
+            data-testid="winner-container"
+            className=''>
+                <Title>{winner === 'HUMAN' ?  'You won' : 'You lost'}</Title> 
+                <Button 
+                    className='' 
+                    onClick={()=> startNewGame()}>
+                    Play again?
+                </Button>
+            </WinnerContainer>
+        }
+    </>
     )
 
 }

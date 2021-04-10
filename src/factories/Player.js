@@ -1,10 +1,10 @@
 
-const Player = ( name, gameBoard ) => {
+const Player = ( name, Gameboard ) => {
     const getName = () => name
-    const getGameBoard = () => gameBoard
+    const getGameboard = () => Gameboard
     let turn = true
 
-    return {getName, turn, getGameBoard}
+    return {getName, turn, getGameboard}
 }
 
 module.exports = Player
