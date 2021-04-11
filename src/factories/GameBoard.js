@@ -103,7 +103,6 @@ const Gameboard = () => {
             if(ships[i].isSunk() && ships[i].shipFlagged === false){
                 ships[i].shipFlagged = true
                 shipName = ships[i].getShipName()
-                console.log(shipName)
             } 
         }
     }

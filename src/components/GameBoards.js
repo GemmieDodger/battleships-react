@@ -120,6 +120,18 @@ const Lives = styled.p `
     }
 `
 
+const SankShip = styled.p `
+    margin-top:10px;
+    color: red;
+    font-weight: bold;
+    font-size: 25px;
+    text-align:center;
+    @media(max-width:768px) {
+        font-size:14px;
+        margin:25px 0;
+    }
+`
+
 
 const Gameboards = (props) => {
     const {humanGameboard, computerGameboard, cellOnClick, shipsRemaining, humanSunkShipName, computerSunkShipName} = props;
@@ -158,7 +170,7 @@ const Gameboards = (props) => {
                     )}
                 </Board>
                 <Lives>Your ships alive: {shipsRemaining.humanShips}</Lives>
-                {humanSunkShipName !== '' ? <Lives>Your {humanSunkShipName} sank</Lives> : ''} 
+                {humanSunkShipName !== '' ? <SankShip>Your {humanSunkShipName} sank</SankShip> : ''} 
                 
             </Wrapper>    
 
@@ -197,7 +209,7 @@ const Gameboards = (props) => {
                     )}
                 </Board>
                 <Lives>Enemy ships alive: {shipsRemaining.computerShips}</Lives>
-                {computerSunkShipName !== '' ? <Lives>You sank your enemies {computerSunkShipName}!</Lives> : ''} 
+                {computerSunkShipName !== '' ? <SankShip>You sank your enemies {computerSunkShipName}!</SankShip> : ''} 
             </Wrapper>
         </>
     )
