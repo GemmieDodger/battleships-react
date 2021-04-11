@@ -51,7 +51,7 @@ const useGameLoop = () => {
 
     const isShipHit = (enemyGameboard, column, row) => {
         const enemyBoard = enemyGameboard.getBoard();
-        return (enemyBoard[column][row] === 'sunked ship');
+        return (enemyBoard[column][row] === 'sunk ship');
     } 
 
     const computerPlay = () => {

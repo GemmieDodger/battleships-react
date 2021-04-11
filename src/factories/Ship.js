@@ -24,7 +24,9 @@ const Ship = (length) => {
 
     const isSunk = () => shipLife.every((val) => val === 'hit')
     
-    return {length, hit, isSunk, name}
+const getShipName = () => name
+
+    return {length, hit, isSunk, getShipName}
 }
 
 module.exports = Ship

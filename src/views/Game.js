@@ -6,6 +6,9 @@ import styled from '@emotion/styled';
 const Button = styled.button `
     display:flex;
     margin:20px auto;
+    background-color: lightgreen;
+    padding: 10px;
+    font-weight: bolder;
 `
 
 const Menu = styled.div `
@@ -24,6 +27,7 @@ const StateTurn = styled.h3 `
     text-align:center;
     margin-top:20px;
     grid-column:1/3;
+    color: #ffffcc;
     @media(max-width:768px) {
         grid-row:2/3;
         grid-column:1/2;
@@ -35,6 +39,8 @@ const WinnerContainer = styled.div `
     position:absolute !important;
     top: 50%;
     left: 50%;
+    background-color: black;
+    color: white;
     transform: translate(-50%, -50%);
     height:400px;
     width:500px;
@@ -69,7 +75,6 @@ const Container = styled.div `
 
 const Game = () => {
     const {cellOnClick, players, winner, startNewGame, remainingShips} = useGameLoop()
-    console.log('players top of game', players)
     const [renderGameboards, setRenderGameboards] = useState(false)
     const [renderWinner, setRenderWinner] = useState(false)
     const [renderMenu, setRenderMenu] = useState(true);
@@ -82,14 +87,13 @@ const Game = () => {
         startNewGame()
         setRenderMenu(false); 
         setRenderGameboards(true)
-        console.log(players, 'handlen new game')
     }
     return (
         <>
         {renderMenu && 
             <Menu>
                 <Button 
-                    className='nes-btn' 
+                    className='btn' 
                     onClick={() => handleNewGame()}>
                     New game
                 </Button>
@@ -112,7 +116,7 @@ const Game = () => {
             <WinnerContainer 
             data-testid="winner-container"
             className=''>
-                <Title>{winner === 'HUMAN' ?  'You won' : 'You lost'}</Title> 
+                <Title>{winner === 'Human' ?  'You won' : 'You lost'}</Title> 
                 <Button 
                     className='' 
                     onClick={()=> startNewGame()}>

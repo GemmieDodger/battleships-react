@@ -1,6 +1,8 @@
 import React from 'react'
 import uniqid from 'uniqid'
 import styled from '@emotion/styled';
+//ACCESS THE NAME TO SAY YOU HAVE SUNK THIS SHIP
+//CMPUTER TO BE CLEVER...
 // import "nes.css/css/nes.min.css";
 // https://github.com/daxas-boop/battleship-tdd/blob/master/src/components/Gameboard.jsx
 const Board = styled.div `
@@ -31,7 +33,6 @@ const Board = styled.div `
 `
 
 const Wrapper = styled.section `
-    border: 4px solid #002c66;
     margin:10px;
     @media(max-width:1366px) {
         margin:10px 20px; 
@@ -58,7 +59,7 @@ const Cell = styled.div `
     border:1px solid #002c66;
     background-color: #2389da;
     &:hover{
-        background-color: purple;
+        background-color: yellow;
     }
 `
 
@@ -69,7 +70,7 @@ const CellNoHover = styled.div `
 `
 
 const MissedShot = styled.div `
-    background-color: #2389da;
+    background-color: #ffa31a;
     border:1px solid #002c66;
     display:flex;
     align-items:center;
@@ -112,6 +113,7 @@ const Coordinates = styled.div `
 
 const Lives = styled.p `
     margin-top:10px;
+    color: #ffffcc;
     text-align:center;
     @media(max-width:768px) {
         font-size:14px;
