@@ -74,7 +74,7 @@ const Container = styled.div `
 
 
 const Game = () => {
-    const {cellOnClick, players, winner, startNewGame, remainingShips} = useGameLoop()
+    const {cellOnClick, players, winner, startNewGame, remainingShips, humanSunkShipName, computerSunkShipName} = useGameLoop()
     const [renderGameboards, setRenderGameboards] = useState(false)
     const [renderWinner, setRenderWinner] = useState(false)
     const [renderMenu, setRenderMenu] = useState(true);
@@ -108,6 +108,8 @@ const Game = () => {
                     humanGameboard={players.human.getGameboard().getBoard()}
                     computerGameboard={players.computer.getGameboard().getBoard()}
                     shipsRemaining={remainingShips}
+                    humanSunkShipName={humanSunkShipName}
+                    computerSunkShipName={computerSunkShipName}
                 />
             </Container>
         }

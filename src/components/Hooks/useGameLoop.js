@@ -7,6 +7,8 @@ import computerPlayer from '../../factories/ComputerPlayer';
 const useGameLoop = () => {
     const [winner, setWinner] = useState(null);
     const [remainingShips, setRemainingShips] = useState();
+    const [humanSunkShipName, setHumanSunkShipName] = useState('');
+    const [computerSunkShipName, setComputerSunkShipName] = useState('');
     const [players, setPlayers] = useState({
         human: humanPlayer('Human', newGameboard()),
         computer: computerPlayer('Computer', newGameboard())
@@ -16,7 +18,8 @@ const useGameLoop = () => {
         players && setRemainingShips({
             humanShips: players.human.getGameboard().getShipsRemaining(),
             computerShips: players.computer.getGameboard().getShipsRemaining()
-        })
+        }) && setHumanSunkShipName(players.human.getGameboard().getSunkShipName())
+         && setComputerSunkShipName(players.computer.getGameboard().getSunkShipName())
     }, [players])
 
     const startNewGame = () => {
@@ -24,6 +27,8 @@ const useGameLoop = () => {
             human: humanPlayer('Human', newGameboard()),
             computer: computerPlayer('Computer',newGameboard())
         }
+        setHumanSunkShipName('')
+        setComputerSunkShipName('')
         setPlayers(newPlayers);
         setWinner(null);
     }
@@ -49,44 +54,59 @@ const useGameLoop = () => {
         }
     }
 
-    const isShipHit = (enemyGameboard, column, row) => {
+    const isShipHit = (enemyGameboard, col, row) => {
         const enemyBoard = enemyGameboard.getBoard();
-        return (enemyBoard[column][row] === 'sunk ship');
+        return (enemyBoard[col][row] === 'sunk ship');
     } 
 
     const computerPlay = () => {
         setTimeout(() => {
+            setHumanSunkShipName('')
             const randomCoords = players.computer.randomAttack();
-            const column = randomCoords[0];
+            const col = randomCoords[0];
             const row = randomCoords[1];
             const enemyGameboard = players.human.getGameboard();
 
-            enemyGameboard.receiveAttack(column, row);
-            if (isShipHit(enemyGameboard,column,row)) {
+            enemyGameboard.receiveAttack(col, row);
+
+
+            if (isShipHit(enemyGameboard,col,row)) {
+                if (enemyGameboard.getSunkShipName() !== '') {
+                    setHumanSunkShipName(enemyGameboard.getSunkShipName())
+                } 
                 setPlayers(prevState => ({...prevState}))
                 checkWinner();
                 setTimeout(() => {computerPlay()}, 300);
                 return;
+            } else {
+                enemyGameboard.missedShip()
             }
+            
             changePlayersTurn();
         }, 300);
     }
 
-    const cellOnClick = (column, row) => {
+    const cellOnClick = (col, row) => {
+        setComputerSunkShipName('')
         const enemyGameboard = players.computer.getGameboard();
-        enemyGameboard.receiveAttack(column, row);
+        enemyGameboard.receiveAttack(col, row);
 
-        if (isShipHit(enemyGameboard,column,row)) {
+        if (isShipHit(enemyGameboard,col,row)) {
+            if (enemyGameboard.getSunkShipName() !== '') {
+                setComputerSunkShipName(enemyGameboard.getSunkShipName())
+            } 
             setPlayers(prevState => ({...prevState}))
             checkWinner(); 
             return;
+        } else {
+            enemyGameboard.missedShip()
         }
         
         changePlayersTurn();
         computerPlay();
     }
 
-    return {cellOnClick, players, winner, startNewGame, remainingShips}
+    return {cellOnClick, players, winner, startNewGame, remainingShips, humanSunkShipName, computerSunkShipName}
 }
 
 export default useGameLoop;

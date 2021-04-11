@@ -3,8 +3,7 @@ import uniqid from 'uniqid'
 import styled from '@emotion/styled';
 //ACCESS THE NAME TO SAY YOU HAVE SUNK THIS SHIP
 //CMPUTER TO BE CLEVER...
-// import "nes.css/css/nes.min.css";
-// https://github.com/daxas-boop/battleship-tdd/blob/master/src/components/Gameboard.jsx
+
 const Board = styled.div `
     display:grid;
     grid-template-rows: repeat(11, 1fr);
@@ -123,8 +122,7 @@ const Lives = styled.p `
 
 
 const Gameboards = (props) => {
-    const {humanGameboard, computerGameboard, cellOnClick, shipsRemaining} = props;
-
+    const {humanGameboard, computerGameboard, cellOnClick, shipsRemaining, humanSunkShipName, computerSunkShipName} = props;
     return(
         <>
             <Wrapper>
@@ -160,6 +158,8 @@ const Gameboards = (props) => {
                     )}
                 </Board>
                 <Lives>Your ships alive: {shipsRemaining.humanShips}</Lives>
+                {humanSunkShipName !== '' ? <Lives>Your {humanSunkShipName} sank</Lives> : ''} 
+                
             </Wrapper>    
 
             <Wrapper>
@@ -197,6 +197,7 @@ const Gameboards = (props) => {
                     )}
                 </Board>
                 <Lives>Enemy ships alive: {shipsRemaining.computerShips}</Lives>
+                {computerSunkShipName !== '' ? <Lives>You sank your enemies {computerSunkShipName}!</Lives> : ''} 
             </Wrapper>
         </>
     )

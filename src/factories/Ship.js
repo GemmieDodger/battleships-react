@@ -21,12 +21,14 @@ const Ship = (length) => {
     const hit = (position) =>{
         shipLife.splice(position, 1, 'hit')
     }
+    const shipFlagged = false
 
     const isSunk = () => shipLife.every((val) => val === 'hit')
     
 const getShipName = () => name
+const getShipLife = () => shipLife
 
-    return {length, hit, isSunk, getShipName}
+    return {length, hit, isSunk, getShipName, getShipLife, shipFlagged}
 }
 
 module.exports = Ship
